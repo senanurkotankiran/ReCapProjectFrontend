@@ -4,22 +4,28 @@
         <div class="col-md-4">
             <app-brand></app-brand>
         </div>
-        <div class="col-md-5">
-            <app-car></app-car>
-        </div>
-        <div class="col-md-3">
-            <app-color></app-color>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <app-customer ></app-customer>
-        </div>
         <div class="col-md-8"> 
-            <app-rental-detail></app-rental-detail>
+            <router-outlet></router-outlet>
         </div>
         
     </div>
-    <router-outlet></router-outlet>
+
+    <div class="row">
+        <div class="col-md-4">
+            <app-color></app-color>
+        </div>
+        <div class="col-md-8">
+            
+            <app-rental-detail></app-rental-detail>
+        </div>
+        
+        
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <app-customer></app-customer>
+        </div>
+    </div>
+    
 </div>
 
