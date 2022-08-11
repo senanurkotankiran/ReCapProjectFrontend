@@ -14,7 +14,7 @@ export class BrandService {
   apiUrl = 'https://localhost:44351/api/brands/getall';
   constructor(private httpClient:HttpClient) { }
 
-   getCars(): Observable<ListResponseModel<Brand>>{
+  getBrands(): Observable<ListResponseModel<Brand>>{
      return this.httpClient.get<ListResponseModel<Brand>>(this.apiUrl);
    }
 

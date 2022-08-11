@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarService } from 'src/app/services/car.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-car',
@@ -12,7 +14,12 @@ export class CarComponent implements OnInit {
 
   cars:Car[] = [];
   dataLoaded = false;
-  constructor(private carService:CarService,private activatedRoute:ActivatedRoute) { }
+  filterText="";
+  
+  constructor(private carService:CarService,
+    private activatedRoute:ActivatedRoute,
+    private toastrService:ToastrService,
+    private cartService:CartService) { }
 
   ngOnInit(): void {
     
@@ -22,7 +29,11 @@ export class CarComponent implements OnInit {
       }
       else if(params["colorId"]){
         this.getCarsByColor(params["colorId"]);
-      }else{
+      }else if(params["brandId"] && params['colorId'] && params['colorId'] && params['minDailyPrice'] && params['maxDailyPrice']){
+        
+            this.getFilteredCars(params["brandId"], params['colorId'],params['minDailyPrice'],params['maxDailyPrice']);
+      }
+      else{
         this.getCars();
       }
 
@@ -51,4 +62,28 @@ export class CarComponent implements OnInit {
       this.dataLoaded=true;
     });
   }
+
+
+
+  getCarDetailsByBrandAndColor(brandId: number, colorId: number) {
+    this.carService
+      .getCarDetailsByBrandAndColor(brandId, colorId)
+      .subscribe((response) => {
+        this.cars = response.data;
+      });
+  }
+
+  addToCart(car:Car){
+    this.toastrService.success("Sepete eklendi",car.carName)
+    this.cartService.addToCart(car);
+  }
+
+  getFilteredCars(brandId:number, colorId:number, minDailyPrice:number, maxDailyPrice:number){
+      this.carService.getFilteredCars(brandId, colorId, minDailyPrice, maxDailyPrice).subscribe((response) => {
+         this.cars = response.data;
+         console.log(response.data);
+          
+       });
+     }
+
 }

@@ -13,6 +13,7 @@ export class BrandComponent implements OnInit {
   currentBrand :Brand;
   emptyBrand:Brand;
   dataLoaded = false;
+  filterBrand="";
 
   constructor(private brandService:BrandService) { }
 
@@ -21,7 +22,7 @@ export class BrandComponent implements OnInit {
   }
 
   getBrands(){
-    this.brandService.getCars().subscribe(response=>{
+    this.brandService.getBrands().subscribe(response=>{
       this.brands = response.data;
       this.dataLoaded = true;
     })
@@ -44,6 +45,8 @@ export class BrandComponent implements OnInit {
     }
 
   }
+
+ 
 
   getAllBrandClass(){  
     if(!this.currentBrand){

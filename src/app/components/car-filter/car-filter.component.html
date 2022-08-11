@@ -1,0 +1,67 @@
+<form [formGroup]="carFilterForm" (ngSubmit)="filter()">
+    <div>
+      <select class="form-select" multiple  aria-label="multiple select example">
+        <option (click)= "clearCurrentBrand()"  
+        routerLink="/cars"  
+        [class]="getAllBrandClass()" selected>Tüm Markalar</option>
+        <option (click)="setCurrentBrand(brand)" 
+        routerLink="/cars/brand/{{brand.brandId}}"
+        *ngFor="let brand of brands " 
+        [class]="getCurrentBrandClass(brand)" value="1"> {{brand.brandName}}</option>
+      </select>
+
+    </div>
+    <br />
+  
+    <div>
+     
+      <select class="form-select" multiple  aria-label="multiple select example">
+        <option  (click)= "clearCurrentColor()"  routerLink="/cars"  [class]="getAllColorClass()" selected>Tüm Renkler</option>
+        <option (click)="setCurrentColor(color)"
+        routerLink="/cars/color/{{color.colorId}}"
+        [class]="getCurrentColorClass(color)"
+        *ngFor="let color of colors "  value="1">{{color.colorName}}</option>
+
+      </select>
+    </div>
+    <br />
+    <div class="input-group mb-3">
+      <input
+        class="form-control"
+        type="number"
+        min="0"
+        max="1000"
+        step="5"
+        id="minDailyPrice"
+        formControlName="minimumDailyPrice"
+        placeholder="Minimum Daily Price"
+        required
+      />
+    </div>
+  
+    <div class="input-group mb-3">
+      <input
+        class="form-control"
+        type="number"
+        min="0"
+        max="1000"
+        step="5"
+        id="maxDailyPrice"
+        formControlName="maximumDailyPrice"
+        placeholder="Maximum Daily Price"
+        required
+      />
+    </div>
+    <div class="btn-group" style="width: 100%">
+      <button  type="submit" class="btn btn-dark btn-block">Filter</button>
+    </div>
+  
+    <br>
+    <br>
+  
+    
+    <div  *ngIf="!allFilterParamatersEntered" class="alert alert-danger">
+      Enter all filter parameters
+    </div>
+  
+  

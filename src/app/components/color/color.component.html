@@ -1,17 +1,22 @@
 <div *ngIf="dataLoaded==false" class="spinner-border text-danger" role="status">
     <span class="visually-hidden">Loading...</span>
 </div>
-<ul class="list-group">
-    <li (click)= "clearCurrentColor()"  
-    routerLink="/cars"  
-    [class]="getAllColorClass()">Tüm Arabalar</li>
 
-    <li (click)="setCurrentColor(color)" 
-    routerLink="/cars/color/{{color.colorId}}"
-    *ngFor="let color of colors" 
-    [class]="getCurrentColorClass(color)">
-    {{color.colorName}}</li>
+<!-- 
+  <ul class="list-group">
 
-</ul>
+    <div class="mb-3">
+    </div>
 
-<h5 *ngIf="currentColor">{{currentColor.colorName}} sectiniz</h5>
+      <select class="form-select" multiple  aria-label="multiple select example">
+        <option  (click)= "clearCurrentColor()"  routerLink="/cars"  [class]="getAllColorClass()" selected>Tüm Renkler</option>
+        <option (click)="setCurrentColor(color)"
+        routerLink="/cars/color/{{color.colorId}}"
+        [class]="getCurrentColorClass(color)"
+        *ngFor="let color of colors "  value="1">{{color.colorName}}</option>
+        
+      </select> 
+
+
+  </ul> -->
+     

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Color } from 'src/app/models/color';
 import { ColorService } from 'src/app/services/color.service';
 
@@ -13,10 +16,20 @@ export class ColorComponent implements OnInit {
   currentColor :Color;
   emptyColor:Color;
   dataLoaded = false;
+  filterColor="";
+  colorForm:FormGroup;
+  isAllColorsClicked:boolean = true;
 
-  constructor(private colorService:ColorService) { }
+
+  constructor(private colorService:ColorService,
+    private activatedRoute:ActivatedRoute,
+    private toastrService:ToastrService,
+    private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
+    this.colorForm  = this.formBuilder.group({
+      color:[null]
+    });
     this.getColors();
   }
 
@@ -29,6 +42,7 @@ export class ColorComponent implements OnInit {
 
   setCurrentColor(color:Color){
     this.currentColor = color;
+    this.isAllColorsClicked=false;
     
   }
 
@@ -37,7 +51,7 @@ export class ColorComponent implements OnInit {
   }
   
   getCurrentColorClass(color:Color){  
-    if(color==this.currentColor){
+    if(color==this.currentColor  && !this.isAllColorsClicked){
       return "list-group-item active"
     }else{
       return "list-group-item"
@@ -48,9 +62,22 @@ export class ColorComponent implements OnInit {
   getAllColorClass(){  
     if(!this.currentColor){
       return "list-group-item active"
+    }else if(this.isAllColorsClicked){
+      return "list-group-item active";
     }else{
       return "list-group-item"
     }
 
   }
+
+  makeAllColorsActive(){
+    this.isAllColorsClicked = true;
+    console.log("all cars clicked.");
+    
+  }
+  submit() {
+    console.log("Form Submitted")
+    console.log(this.colorForm.value)
+  }
+
 }
